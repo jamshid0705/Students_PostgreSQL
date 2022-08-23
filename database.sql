@@ -1,0 +1,26 @@
+CREATE TABLE tuman(
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  name VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE maktab(
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  name VARCHAR(40) NOT NULL,
+  tuman_id BIGINT REFERENCES tuman(id) NOT NULL
+);
+
+CREATE TABLE sinf( 
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  name VARCHAR(40) NOT NULL,
+  maktab_id BIGINT REFERENCES maktab(id) NOT NULL
+);
+
+CREATE TABLE uquvchilar(
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  tugilgan_kun DATE,
+  tel VARCHAR(30) ,
+  gender VARCHAR(30) CHECK(gender='Male' OR gender='Female'),
+  sinf_id BIGINT REFERENCES sinf(id) NOT NULL
+);
+
