@@ -19,7 +19,7 @@ const add = async (req, res) => {
   try {
     const data = await pool.query(
       `INSERT INTO uquvchilar(name,tugilgan_kun,tel,gender,sinf_id) VALUES($1,$2,$3,$4,$5) RETURNING *`,
-      [req.body.name,req.body.tugilgan_kun,req.body.tel,req.body.gender, req.body.tuman_id]
+      [req.body.name,req.body.tugilgan_kun,req.body.tel,req.body.gender, req.body.sinf_id]
     );
     res.status(201).json({
       data: data.rows,
