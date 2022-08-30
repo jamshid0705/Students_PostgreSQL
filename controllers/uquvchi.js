@@ -33,15 +33,18 @@ const add = async (req, res) => {
 
 const edit = async (req, res) => {
   try {
-    const old = await pool.query("SELECT * FROM maktab WHERE id=$1", [
+    const old = await pool.query("SELECT * FROM uquvchilar WHERE id=$1", [
       req.params.id,
     ]);
     console.log(old.rows[0]);
     const data = await pool.query(
-      "UPDATE maktab SET name=$1,tuman_id=$2 WHERE id=$3 RETURNING *",
+      "UPDATE uquvchilar SET name=$1,tugilgan_kun=$2,tel=$3,gender=$4,sinf_id=$5 WHERE id=$6 RETURNING *",
       [
         req.body.name || old.rows[0].name,
-        req.body.tuman_id || old.rows[0].tuman_id,
+        req.body.tugilgan_kun || old.rows[0].tugilgan_kun,
+        req.body.tel || old.rows[0].tel,
+        req.body.gender || old.rows[0].gender,
+        req.body.sinf_id || old.rows[0].sinf_id,
         req.params.id,
       ]
     );
@@ -58,7 +61,7 @@ const edit = async (req, res) => {
 
 const deleteData = async (req, res) => {
   try {
-    await pool.query("DELETE FROM maktab WHERE id=$1", [req.params.id]);
+    await pool.query("DELETE FROM uquvchilar WHERE id=$1", [req.params.id]);
     res.status(200).json({
       message: "Malumot ochirildi",
     });
@@ -72,7 +75,7 @@ const deleteData = async (req, res) => {
 const getOne = async (req, res) => {
   try {
     const data = await pool.query(
-      "SELECT maktab.name AS maktab_name, tuman.name AS tuman_name FROM maktab  JOIN tuman ON maktab.tuman_id=tuman.id where maktab.id=$1",
+      "SELECT sinf.name AS sinf_name, .name AS tuman_name FROM maktab  JOIN tuman ON maktab.tuman_id=tuman.id where maktab.id=$1",
       [req.params.id]
     );
     res.status(200).json({

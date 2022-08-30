@@ -37,6 +37,7 @@ const edit = async (req, res) => {
       req.params.id,
     ]);
     console.log(old.rows[0]);
+    
     const data = await pool.query(
       "UPDATE maktab SET name=$1,tuman_id=$2 WHERE id=$3 RETURNING *",
       [

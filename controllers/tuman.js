@@ -15,10 +15,7 @@ const getAll = async (req, res) => {
 
 const add = async (req, res) => {
   try {
-    const data = await pool.query(
-      `INSERT INTO tuman(name) VALUES($1) RETURNING *`,
-      [req.body.name]
-    );
+    const data = await pool.query(`INSERT INTO tuman(name) VALUES($1) RETURNING *`,[req.body.name]);
     res.status(201).json({
       data: data.rows,
     });
